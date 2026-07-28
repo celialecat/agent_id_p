@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentid"
+version = "0.1.0"
+description = "Sovereign agent identity and bonding protocol MVP"
+requires-python = ">=3.11"
+dependencies = ["cryptography>=42", "fastapi>=0.110", "httpx>=0.27", "pydantic>=2"]
+
+[project.optional-dependencies]
+server = ["uvicorn>=0.30"]
+
+[dependency-groups]
+dev = ["mypy>=1.10", "pytest>=8", "ruff>=0.5"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentid", "sdk/agentid_sdk"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "sdk", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true
+mypy_path = ["src", "sdk"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "sdk"]
